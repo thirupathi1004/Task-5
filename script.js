@@ -24,9 +24,9 @@ console.log("Total Price:", total);
 
 
 let user = {
-  name: "Naveen",
-  role: "Trainee",
-  salary: 20000
+  name: "Thirupathi J",
+  role: "Dotnet Developer",
+  salary: 40000
 };
 
 let update = {
@@ -58,10 +58,10 @@ teamScore("Warriors", 50, 60, 70, 80);
 
 let apiData = {
   user: {
-    name: "Naveen",
+    name: "Thirupathi",
     address: {
-      city: "Bangalore",
-      pincode: 560001
+      city: "Hyderabad",
+      pincode: 500060
     }
   }
 };
