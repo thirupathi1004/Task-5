@@ -1,173 +1,88 @@
-let cart1 = [
-  { name: "Shirt", price: 500 },
-  { name: "Shoes", price: 1500 }
-];
+ console.log("Order placed");
 
-let cart2 = [
-  { name: "Watch", price: 2000 }
-];
+setTimeout(() => {
+  console.log("Preparing food");
+}, 2000);
 
-// Merge carts
-let mergedCart = [...cart1, ...cart2];
+setTimeout(() => {
+  console.log("Food ready");
+}, 4000);
 
-// Add new product
-mergedCart.push({ name: "Cap", price: 300 });
-
-// Remove last product
-mergedCart.pop();
-
-// Calculate total price
-let total = mergedCart.reduce((sum, item) => sum + item.price, 0);
-
-console.log("Cart:", mergedCart);
-console.log("Total Price:", total);
+setTimeout(() => {
+  console.log("Delivered");
+}, 5000);
 
 
-let user = {
-  name: "Thirupathi J",
-  role: "Dotnet Developer",
-  salary: 40000
-};
+let count = 0;
 
-let update = {
-  role: "Developer",
-  salary: 50000
-};
+const clock = setInterval(() => {
+  const now = new Date();
+  console.log(now.toLocaleTimeString());
+  
+  count++;
 
-// Merge
-let updatedUser = { ...user, ...update };
-
-// Destructure
-let { name, role, salary } = updatedUser;
-
-console.log(`${name} is now a ${role} earning ${salary}`);
-
-
-function teamScore(teamName, ...scores) {
-  console.log("Team:", teamName);
-  console.log("Scores:", scores);
-
-  let total = scores.reduce((a, b) => a + b, 0);
-  let highest = Math.max(...scores);
-
-  console.log("Total Score:", total);
-  console.log("Highest Score:", highest);
-}
-
-teamScore("Warriors", 50, 60, 70, 80);
-
-let apiData = {
-  user: {
-    name: "Thirupathi",
-    address: {
-      city: "Hyderabad",
-      pincode: 500060
-    }
+  if (count === 10) {
+    clearInterval(clock);
+    console.log("Clock stopped");
   }
-};
-
-// Destructuring
-let {
-  user: {
-    
-    address: { city, pincode }
-  }
-} = apiData;
-
-console.log(`${name} lives in ${city} - ${pincode}`);
+}, 1000);
 
 
-let users = ["A", "B", "C", "D", "E"];
-
-// Remove C, D and add X, Y
-users.splice(2, 2, "X", "Y");
-
-// First 3 users
-let firstThree = users.slice(0, 3);
-
-// Check existence
-let hasB = users.includes("B");
-
-// Find index
-let indexE = users.indexOf("E");
-
-console.log(users);
-console.log("First 3:", firstThree);
-console.log("Has B:", hasB);
-console.log("Index of E:", indexE);
-
-let messyData = [1, 2, [3, 4, [5]], null, undefined, "hello"];
-
-// Flatten
-let flatData = messyData.flat(Infinity);
-
-// Remove null & undefined
-let cleanData = flatData.filter(item => item != null);
-
-console.log(cleanData);
-
-let prices = [1000, 200, 50, 5000];
-
-// Correct sort
-prices.sort((a, b) => a - b);
-
-console.log(prices);
-
-
-
-let orders = [
-  { id: 1, amount: 100 },
-  { id: 2, amount: 200 },
-  { id: 3, amount: 300 }
-];
-
-// Total revenue
-let totalRevenue = orders.reduce((sum, o) => sum + o.amount, 0);
-
-// Average
-let avg = totalRevenue / orders.length;
-
-console.log("Total Revenue:", totalRevenue);
-console.log("Average Order Value:", avg);
-
-
-let inventory1 = ["Pen", "Book", "Pencil"];
-let inventory2 = ["Eraser", "Sharpener"];
-
-// Add item
-inventory1.push("Marker");
-
-// Remove item
-inventory1.pop();
-
-// Update item (replace "Book" with "Notebook")
-let index = inventory1.indexOf("Book");
-if (index !== -1) {
-  inventory1.splice(index, 1, "Notebook");
+function loginUser(callback) {
+  setTimeout(() => {
+    console.log("User Logged In");
+    callback();
+  }, 1000);
 }
 
-// Search
-console.log("Has Pen:", inventory1.includes("Pen"));
-
-// Merge inventories
-let finalInventory = [...inventory1, ...inventory2];
-
-console.log(finalInventory);
-
-
-function processData(...data) {
-  // Flatten
-  let flat = data.flat(Infinity);
-
-  // Remove duplicates
-  let unique = [...new Set(flat)];
-
-  // Sort ascending
-  unique.sort((a, b) => a - b);
-
-  return unique;
+function getUserData(callback) {
+  setTimeout(() => {
+    console.log("User Data Fetched");
+    callback();
+  }, 1000);
 }
 
-console.log(processData(1, 2, [3, 4], [5, [6]]));
+function getUserPosts(callback) {
+  setTimeout(() => {
+    console.log("User Posts Fetched");
+    callback();
+  }, 1000);
+}
+
+// Callback Hell
+loginUser(() => {
+  getUserData(() => {
+    getUserPosts(() => {
+      console.log("All Done");
+    });
+  });
+});
+
+
+function getProducts() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let success = true; // change to false to test error
+
+      if (success) {
+        resolve(["Laptop", "Mobile", "Tablet"]);
+      } else {
+        reject("API Failed");
+      }
+    }, 2000);
+  });
+}
+
+// Using Promise
+getProducts()
+  .then((products) => {
+    console.log("Products:", products);
+  })
+  .catch((error) => {
+    console.log("Error:", error);
+  })
+  .finally(() => {
+    console.log("Request completed");
+  });
 
 
